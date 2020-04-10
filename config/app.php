@@ -140,7 +140,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Webpatser\Countries\CountriesServiceProvider::class,
         Baum\Providers\BaumServiceProvider::class,
-
+          Way\Generators\GeneratorsServiceProvider::class,
+          Xethron\MigrationsGenerator\MigrationsGeneratorServiceProvider::class,
         ],
     /*
       |--------------------------------------------------------------------------

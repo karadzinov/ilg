@@ -15,7 +15,9 @@ class CountriesSeeder extends Seeder {
         DB::table(\Config::get('countries.table_name'))->delete();
 
         //Get all of the countries
-        $countries = Countries::getList();
+        $countries = new Webpatser\Countries\Countries();
+        $countries = $countries->getList();
+
         foreach ($countries as $countryId => $country){
             DB::table(\Config::get('countries.table_name'))->insert(array(
                 'id' => $countryId,
