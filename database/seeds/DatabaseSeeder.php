@@ -2,17 +2,19 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder {
+class DatabaseSeeder extends Seeder
+{
 
     /**
      * Run the database seeds.
      *
      * @return void
      */
-    public function run() {
-    	// $this->call('CountriesSeeder');
-    	// $this->call('UserSeeder');
-    	$this->call('WorkflowSeeder');
+    public function run()
+    {
+        $this->call('CountriesSeeder');
+        $this->call('UserSeeder');
+        $this->call('WorkflowSeeder');
     }
 
 }
