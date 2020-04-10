@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableProduct extends Migration
+class CreateTeamTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,19 +12,21 @@ class CreateTableProduct extends Migration
      */
     public function up()
     {
-        Schema::create('product', function (Blueprint $table) {
+        Schema::create('team', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
-            $table->string('slug');
+            $table->string('name');
             $table->string('image');
-            $table->string('imagemedium');
+            $table->string('title');
+            $table->text('bio');
+            $table->text('instagram')->nullable();
+            $table->text('linkedin')->nullable();
+            $table->text('facebook')->nullable();
             $table->string('imagethumb');
-            $table->integer('category')->unsigned();
-            $table->foreign('category')->references('id')->on('categories');
-            $table->text('description');
+            $table->string('imagemedium');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('workflow_id');
+            $table->text('slug');
             $table->timestamps();
         });
     }
@@ -36,6 +38,6 @@ class CreateTableProduct extends Migration
      */
     public function down()
     {
-         Schema::drop('product');
+        Schema::drop('team');
     }
 }

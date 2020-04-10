@@ -12,7 +12,7 @@ class CreateTableSettings extends Migration
      */
     public function up()
     {
-        Schema::create('settigs', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
             $table->string('mainurl');

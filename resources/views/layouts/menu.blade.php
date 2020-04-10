@@ -215,6 +215,10 @@
                                                     <a href="/referents/all">Референца</a>
 
                                                 </li>
+
+                                                <li class="mega-menu">
+                                                    <a href="/team">Тим</a>
+                                                </li>
                                             <!-- header buttons -->
                                                 <div class="header-dropdown-buttons">
                                                     <a href="mailto:{{$settings->email}}"
