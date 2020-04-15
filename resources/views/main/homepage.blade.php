@@ -171,8 +171,8 @@
                 @foreach($services as $service)
                 <div class="col-sm-4">
                     <div class="image-box style-2 mb-20">
-                        <div class="overlay-container overlay-visible">
-                            <img src="/assets/img/services/medium/{{ $service->image }}" alt="{{ $service->title }}">
+                        <div class="overlay-container overlay-visible" style="width: 200px">
+                            <img src="/assets/img/services/thumbnails/{{ $service->image }}" alt="{{ $service->title }}" style="width: 200px">
                             <a href="/services/{{ $service->slug }}" class="overlay-link"><i class="fa fa-link"></i></a>
                             <div class="overlay-bottom">
                                 <div class="text">
@@ -181,8 +181,8 @@
                             </div>
                         </div>
                         <div class="body padding-horizontal-clear">
-                            <p>{!! strip_tags(str_limit($service->description, 200, '...')) !!}</p>
-                            <a class="link-dark" href="/services/{{ $service->slug }}">Повеќе</a>
+                          <p>{!! strip_tags(str_limit($service->shortdesc, 200, '...')) !!}</p>
+                            @if (strlen($service->shortdesc) > 200) <a class="link-dark" href="/services/{{ $service->slug }}">Повеќе</a>@endif
                         </div>
                     </div>
                 </div>

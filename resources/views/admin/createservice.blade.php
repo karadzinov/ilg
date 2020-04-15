@@ -50,6 +50,11 @@
                             </div>
                             @if ($errors->has('description')) <p class="alert alert-danger">{{ $errors->first('description') }}</p> @endif
 
+                            <div class="form-group">
+                                <label for="shortdesc">Краток текст</label>
+                                <textarea name="shortdesc"></textarea>
+                            </div>
+                            @if ($errors->has('shortdesc')) <p class="alert alert-danger">{{ $errors->first('shortdesc') }}</p> @endif
 
 
                             <div class="form-group">

@@ -9,12 +9,12 @@ class WorkflowSeeder extends Seeder {
 
         $image = $faker->imageUrl();
         DB::table('workflow')->insert([
-            'name' => 'published',
+            'name' => 'На почетна',
             'color' => 'colored-palegreen',
         ]);
 
         DB::table('workflow')->insert([
-            'name' => 'waiting',
+            'name' => 'Во позадина',
             'color' => 'colored-orange',
         ]);
 

@@ -59,6 +59,7 @@ class ServicesController extends Controller
         $errors = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required',
+            'shortdesc' => 'required',
             'image' => 'required',
         ]);
 
@@ -172,6 +173,7 @@ class ServicesController extends Controller
         $errors = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required',
+            'shortdesc' => 'required',
         ]);
 
         if ($errors->fails()) {
