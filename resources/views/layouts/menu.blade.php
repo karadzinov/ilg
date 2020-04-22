@@ -215,6 +215,10 @@
                                                     <a href="/referents/all">Референца</a>
 
                                                 </li>
+
+                                                <li class="mega-menu">
+                                                    <a href="/contact">Контактирај Не</a>
+                                                </li>
                                             <!-- header buttons -->
                                                 <div class="header-dropdown-buttons">
                                                     <a href="mailto:{{$settings->email}}"
@@ -225,7 +229,7 @@
                                                                 class="fa fa-envelope-o pl-5"></i></a>
                                                 </div>
                                                 <!-- header buttons end-->
-
+                                            </ul>
                                         </div>
 
                                     </div>

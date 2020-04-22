@@ -5,10 +5,6 @@
 
 
 
-Route::group(['middleware' => ['web']], function () {
-
-});
-
 Route::group(['prefix' => 'admin'], function() {
 
 });
@@ -43,14 +39,20 @@ Route::group(['middleware' => ['web', 'role:admin'], 'prefix' => 'admin'], funct
     Route::resource('/staticpage', 'StaticController');
     Route::resource('/referrals', 'ReferralController');
     Route::resource('/services', 'ServicesController');
+
+    Route::get('/contact-email', 'ContactmailController@index');
 });
 
-Route::get('/', 'HomePageController@index');
-Route::get('/{slug}', 'HomePageController@staticpages');
-Route::get('/referents/{slug}', 'HomePageController@referents');
-Route::get('/services/{slug}', 'HomePageController@services');
-Route::get('/product/{slug}', 'HomePageController@product');
-Route::get('/categories/{slug}', 'HomePageController@categories');
 
+Route::group(['middleware' => ['web']], function () {
 
+    Route::get('/', 'HomePageController@index');
+    Route::get('/contact', 'ContactController@index');
+    Route::get('/{slug}', 'HomePageController@staticpages');
+    Route::get('/referents/{slug}', 'HomePageController@referents');
+    Route::get('/services/{slug}', 'HomePageController@services');
+    Route::get('/product/{slug}', 'HomePageController@product');
+    Route::get('/categories/{slug}', 'HomePageController@categories');
+    Route::post('/contact/store', 'ContactController@store')->name('contact.store');
+});
 

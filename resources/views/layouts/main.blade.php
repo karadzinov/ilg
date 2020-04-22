@@ -73,9 +73,13 @@
 
     @yield('slider')
 
-    <div id="page-start"></div>
+    <div id="page-start">
 
-@yield('content')
+        @yield('content')
+
+    </div>
+
+
 
     <!-- footer start (Add "dark" class to #footer in order to enable dark footer) -->
     <!-- ================ -->
@@ -146,23 +150,24 @@
                                 <div class="alert alert-danger hidden" id="MessageNotSent2">
                                     Oops! Something went wrong please refresh the page and try again.
                                 </div>
-                                <form role="form" id="footer-form" class="margin-clear">
+                                <form id="contact_form" role="form" class="margin-clear" action="{{ route('contact.store') }}" method="post">
+                                    {!! csrf_field() !!}
                                     <div class="form-group has-feedback mb-10">
-                                        <label class="sr-only" for="name2">Име</label>
-                                        <input type="text" class="form-control" id="name2" placeholder="Име"
-                                               name="name2">
+                                        <label class="sr-only" for="name">Име</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Име"
+                                               name="name">
                                         <i class="fa fa-user form-control-feedback"></i>
                                     </div>
                                     <div class="form-group has-feedback mb-10">
-                                        <label class="sr-only" for="email2">Email address</label>
-                                        <input type="email" class="form-control" id="email2" placeholder="Внесете email"
-                                               name="email2">
+                                        <label class="sr-only" for="email">Email address</label>
+                                        <input type="email" class="form-control" id="email" placeholder="Внесете email"
+                                               name="email">
                                         <i class="fa fa-envelope form-control-feedback"></i>
                                     </div>
                                     <div class="form-group has-feedback mb-10">
-                                        <label class="sr-only" for="message2">Порака</label>
-                                        <textarea class="form-control" rows="4" id="message2" placeholder="Порака"
-                                                  name="message2"></textarea>
+                                        <label class="sr-only" for="message">Порака</label>
+                                        <textarea class="form-control" rows="4" id="message" placeholder="Порака"
+                                                  name="message"></textarea>
                                         <i class="fa fa-pencil form-control-feedback"></i>
                                     </div>
                                     <input type="submit" value="Испрати"
@@ -243,5 +248,45 @@
 <!-- Custom Scripts -->
 <script type="text/javascript" src="/assets/js/custom.js"></script>
 @yield('scripts')
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    });
+
+    $(document).ready(function() {
+        $('#contact_form').on('submit', function (e) {
+
+            e.preventDefault();
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var message = $("#message").val();
+
+            var data = {name: name, email: email, message: message};
+            jQuery.ajax({
+                url: "{{ route('contact.store') }}",
+                method: 'post',
+                data: data
+            }).done(function (response) {
+                //check if response has errors object
+                if (response.errors) {
+
+                    console.log(response.errors);
+                    $("#MessageNotSent2").removeClass("hidden");
+                    // do what you want with errors,
+
+                }
+                else{
+                $("#MessageSent2").removeClass("hidden");
+                $("#MessageNotSent2").addClass("hidden");
+                    $("#contact_form").trigger("reset");
+                }
+
+            });
+
+        });
+    });
+</script>
 </body>
 </html>
