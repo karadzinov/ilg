@@ -37,9 +37,11 @@
 
                                                 <div class="ticket-state bg-palegreen">
                                                     <i class="glyphicon glyphicon-eye-open"></i>
+
                                                 </div>
+                                            </a>
                                         </div>
-                                        </a>
+
                                         @endforeach
                                     </li>
                             </ul>

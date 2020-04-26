@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Team;
 use App\Workflow;
-use http\Client\Curl\User ;
+use App\User as User;
+use Validator;
 use Illuminate\Http\Request;
-use Intervention\Image\Image as Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use App\Http\Requests;
-use MongoDB\Driver\Session;
+use Illuminate\Support\Facades\Session;
 
 class TeamController extends Controller
 {
@@ -47,11 +48,11 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make([
-           'name' => 'required',
-            'title' => 'required',
-            'image' => 'required',
-            'bio' => 'required',
+        $validator = Validator::make($request->all() ,[
+           'name' => 'required|max:255',
+            'title' => 'required|max:255',
+            'image' => 'required|max:255',
+            'bio' => 'required|max:255',
         ]);
 
         if($validator->fails()){
@@ -59,6 +60,9 @@ class TeamController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
+
+
+
 
         $request['name'] = strip_tags($request['name']);
         $request['slug'] = str_slug($request['name']);
@@ -68,46 +72,62 @@ class TeamController extends Controller
 
         if ($count > 0) $request['slug'] = $request['slug'] . '_' . $count;
 
+        $name = $request->get('name');
+        $fullname = explode(' ', $name);
+        $firstname=$fullname[0];
+        $lastname=$fullname[1];
+        $slugname = implode('-', $fullname);
+
         $input = $request->all();
 
 
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
 
-            $image = $request->File('image');
+            $image = $request->file('image');
             $path = public_path('/assets/img/team/');
-            $paththumb = public_path('assets/img/team/thumbnails');
-            $pathmedium = public_path('assets/img/team/medium');
+            $pathThumb = public_path('assets/img/team/thumbnails/');
+            $pathMedium = public_path('assets/img/team/medium/');
             $extension = $image->getClientOriginalExtension();
 
-            $imageName = str_slug($input['name']) . '_' . $extension;
 
-            $image->move(public_path($path, $imageName));
+            if ($count > 0) {
+                $imageName = str_slug($input['name']) . '_' . $count . '.' . $extension;
+            } else {
+                $imageName = str_slug($input['name']) . '.' . $extension;
+            }
 
-            $findImage = public_path() . '/assets/img/team' .$imageName;
-            $imgthumb = Image::make($findImage)->resize('200' , null , function ($constraint){
-                $constraint->AspectRatio();
-            });
-            $imagemedium = Image::make($findImage)->resize(600, null, function ($constraint) {
+
+            $image->move($path, $imageName);
+
+            $findimage = public_path('/assets/img/team/'.  $imageName);
+            $imgthumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
-            $imgthumb->save($paththumb . $imageName);
-            $imagemedium->save($pathmedium . $imageName);
+            $imgmedium = Image::make($findimage)->resize(600, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
 
-            $image = $request->$imgthumb = $imageName;
+            $imgthumb->save($pathThumb . $imageName);
+            $imgmedium->save($pathMedium . $imageName);
+
+            $image = $request->imgthumb = $imageName;
             $imgthumb = $request->image = $imageName;
-            $imagemedium = $request->image = $imageName;
+            $imgmedium = $request->image = $imageName;
 
         }
 
 
         $input['image'] = $image;
-        $input['imagemedium'] = $imagemedium;
+        $input['imagemedium'] = $imgmedium;
         $input['imagethumb'] = $imgthumb;
+        $input['slug_name'] = $slugname;
 
-        Team::create($input);
 
-        Session::flash('flash_message', 'A team member has been added');
+
+        $team = Team::create($input);
+
+        Session::flash('flash_message', 'Team member successfully added!');
 
         return redirect()->back();
 
@@ -133,9 +153,9 @@ class TeamController extends Controller
     public function edit($id)
     {
         $team = Team::FindOrFail($id);
-        $user = User::get();
-        $workflow = Workflow::orderBy('id' , 'desc');
-        $data = ['team' => $team, 'user' => $user, 'workflow' => $workflow];
+        $users = User::get();
+        $workflows = Workflow::orderBy('id' , 'desc');
+        $data = ['team' => $team, 'users' => $users, 'workflows' => $workflows];
         return view('admin.team.edit')->with($data);
     }
 
@@ -149,50 +169,57 @@ class TeamController extends Controller
     public function update(Request $request, $id)
     {
         $team = Team::FindOrFail($id);
-        
+
         $request['name'] = strip_tags($request['name']);
-        $slug = str_slug($request['name']);
-        
+
+        $slugname = str_slug($request['name']);
+
         $input = $request->all();
+
         $team->fill($input)->save();
-        
-        if($request->hasFile('image')){
+
+        if ($request->hasFile('image')) {
 
             $image = $request->file('image');
-            $path = public_path() .'/assets/img/team';
-            $paththumb = public_path() .'/assets/img/team/thumbnails';
-            $pathmedium = public_path().'/assets/img/team/medium';
-            $extension = $image->getOriginalExtension();
+            $path = public_path() . '/assets/img/team';
+            $pathThumb = public_path() . '/assets/img/team/thumbnails/';
+            $pathMedium = public_path() . '/assets/img/team/medium/';
+            $ext = $image->getClientOriginalExtension();
 
-            $imageName = str_slug($input['name']) . '_' . $extension;
+            $imageName = $slugname . '.' . $ext;
 
-            $image->move(public_path($path, $imageName));
 
-            $findImage = public_path() . '/assets/img/team' .$imageName;
-            $imgthumb = Image::make($findImage)->resize('200' , null , function ($constraint){
+            $image->move($path, $imageName);
+
+            $findimage = public_path() . '/assets/img/team/' . $imageName;
+            $imagethumb = Image::make($findimage)->resize(200, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
-            $imagemedium = Image::make($findImage)->resize(600, null, function ($constraint) {
+
+            $imagemedium = Image::make($findimage)->resize(600, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
 
-            $imgthumb->save($paththumb . $imageName);
-            $imagemedium->save($pathmedium . $imageName);
 
-            $image = $request->$imgthumb = $imageName;
-            $imgthumb = $request->image = $imageName;
+            $imagethumb->save($pathThumb . $imageName);
+            $imagemedium->save($pathMedium . $imageName);
+
+            $image = $request->imagethumb = $imageName;
+            $imagethumb = $request->image = $imageName;
             $imagemedium = $request->image = $imageName;
 
+
+            $input['image'] = $image;
+            $input['imagemedium'] = $imagemedium;
+            $input['imagethumb'] = $imagethumb;
+
         }
+        $input['slug_name'] = $slugname;
 
-
-        $input['image'] = $image;
-        $input['imagemedium'] = $imagemedium;
-        $input['imagethumb'] = $imgthumb;
             
         $team->fill($input)->save();
 
-        Session::flash('flash_message', 'Team successfully updated');
+        Session::flash('flash_message', 'Member successfully updated');
         return redirect()->back();
         
     }
@@ -207,9 +234,9 @@ class TeamController extends Controller
     {
         $team = Team::FindOrFail($id);
 
-        $img = public_path() . '/assets/img/slider/' . $team->image;
-        $imgmedium = public_path() . '/assets/img/slider/medium/' . $team->image;
-        $imgthumb = public_path() . '/assets/img/slider/thumbnails/' . $team->image;
+        $img = public_path( '/assets/img/team/' . $team->image);
+        $imgmedium = public_path( '/assets/img/team/medium/' . $team->image);
+        $imgthumb = public_path( '/assets/img/team/thumbnails/' . $team->image);
 
         unlink($img);
         unlink($imgmedium);
@@ -218,7 +245,7 @@ class TeamController extends Controller
         $team->delete();
 
         Session::flash('flash_message', 'Successfully Deleted!');
-        return redirect('admin/team/index');
+        return redirect('admin/team');
 
     }
 }

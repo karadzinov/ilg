@@ -43,9 +43,12 @@ Route::group(['middleware' => ['web', 'role:admin'], 'prefix' => 'admin'], funct
     Route::resource('/staticpage', 'StaticController');
     Route::resource('/referrals', 'ReferralController');
     Route::resource('/services', 'ServicesController');
+    Route::resource('/team', 'TeamController');
 });
 
 Route::get('/', 'HomePageController@index');
+Route::get('/team', 'HomePageController@team');
+Route::get('/team/{slug}', 'HomePageController@singleMember');
 Route::get('/{slug}', 'HomePageController@staticpages');
 Route::get('/referents/{slug}', 'HomePageController@referents');
 Route::get('/services/{slug}', 'HomePageController@services');

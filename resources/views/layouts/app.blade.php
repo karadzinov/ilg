@@ -220,6 +220,14 @@
                     </a>
                 </li>
 
+                <li>
+                    <a href="/admin/team" class="menu">
+                        <i class="menu-icon fa fa-users"></i>
+                        <span class="menu-text"> Team </span>
+
+                    </a>
+                </li>
+
 
             </ul>
             <!-- /Sidebar Menu -->

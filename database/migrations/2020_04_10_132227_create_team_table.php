@@ -27,6 +27,7 @@ class CreateTeamTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->integer('workflow_id');
             $table->text('slug');
+            $table->text('slug_name');
             $table->timestamps();
         });
     }

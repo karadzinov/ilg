@@ -189,12 +189,15 @@
                                                     <a href="#" class="dropdown-toggle"
                                                        data-toggle="dropdown">Услуги</a>
                                                     <ul class="dropdown-menu">
-                                                        @foreach($services as $service)
-                                                            <li>
-                                                                <a href="/services/{{ $service->slug }}">{{ $service->title }}</a>
-                                                            </li>
-                                                        @endforeach
+{{--                                                        @foreach($services as $service)--}}
+{{--                                                            <li>--}}
+{{--                                                                <a href="/services/{{ $service->slug }}">{{ $service->title }}</a>--}}
+{{--                                                            </li>--}}
+{{--                                                        @endforeach--}}
                                                     </ul>
+                                                </li>
+                                                <li class="mega-menu">
+                                                    <a href="/team">Тим</a>
                                                 </li>
 
                                                 <li class="dropdown ">
@@ -209,16 +212,14 @@
                                                     <li>
                                                         <a href="/{{ $staticpage->slug }}">{{ $staticpage->title }}</a>
                                                     </li>
-                                            @endforeach
+                                                @endforeach
 
                                                 <li class="mega-menu">
                                                     <a href="/referents/all">Референца</a>
 
                                                 </li>
 
-                                                <li class="mega-menu">
-                                                    <a href="/team">Тим</a>
-                                                </li>
+
                                             <!-- header buttons -->
                                                 <div class="header-dropdown-buttons">
                                                     <a href="mailto:{{$settings->email}}"

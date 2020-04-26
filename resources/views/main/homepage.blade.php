@@ -166,29 +166,29 @@
             <div class="separator"></div>
             <br>
             <!-- page-title end -->
-            @foreach(array_chunk($services->all(), 3) as $services)
-            <div class="row">
-                @foreach($services as $service)
-                <div class="col-sm-4">
-                    <div class="image-box style-2 mb-20">
-                        <div class="overlay-container overlay-visible">
-                            <img src="/assets/img/services/medium/{{ $service->image }}" alt="{{ $service->title }}">
-                            <a href="/services/{{ $service->slug }}" class="overlay-link"><i class="fa fa-link"></i></a>
-                            <div class="overlay-bottom">
-                                <div class="text">
-                                    <p class="lead margin-clear text-left mobile-visible">{{ $service->title }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="body padding-horizontal-clear">
-                            <p>{!! strip_tags(str_limit($service->description, 200, '...')) !!}</p>
-                            <a class="link-dark" href="/services/{{ $service->slug }}">Повеќе</a>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-                @endforeach
+{{--            @foreach(array_chunk($services->all(), 3) as $services)--}}
+{{--            <div class="row">--}}
+{{--                @foreach($services as $service)--}}
+{{--                <div class="col-sm-4">--}}
+{{--                    <div class="image-box style-2 mb-20">--}}
+{{--                        <div class="overlay-container overlay-visible">--}}
+{{--                            <img src="/assets/img/services/medium/{{ $service->image }}" alt="{{ $service->title }}">--}}
+{{--                            <a href="/services/{{ $service->slug }}" class="overlay-link"><i class="fa fa-link"></i></a>--}}
+{{--                            <div class="overlay-bottom">--}}
+{{--                                <div class="text">--}}
+{{--                                    <p class="lead margin-clear text-left mobile-visible">{{ $service->title }}</p>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        <div class="body padding-horizontal-clear">--}}
+{{--                            <p>{!! strip_tags(str_limit($service->description, 200, '...')) !!}</p>--}}
+{{--                            <a class="link-dark" href="/services/{{ $service->slug }}">Повеќе</a>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                @endforeach--}}
+{{--            </div>--}}
+{{--                @endforeach--}}
 
         </div>
     </section>
@@ -210,34 +210,34 @@
 
 
 
-                    <div class="isotope-container row grid-space-10">
-                        @foreach(array_chunk($referrals->all(), 4) as $referrals)
-                            <div class="row">
-                                @foreach($referrals as $referral)
-                                    <div class="col-md-3 col-sm-6 isotope-item {{ $referral->slug }}">
-                                        <div class="image-box shadow bordered text-center mb-20">
-                                            <div class="overlay-container">
-                                                <div class="img-container">
-                                                    <img src="/assets/img/referrals/medium/{{ $referral->image }}"
-                                                         alt="{{ $referral->title }}">
-                                                </div>
-                                                <div class="overlay-top">
-                                                    <div class="text">
-                                                        <h3>
-                                                            <a href="/referents/{{ $referral->slug }}">{!! $referral->title !!}</a>
-                                                        </h3>
-                                                    </div>
-                                                </div>
-                                                <div class="overlay-bottom">
-                                                    <p class="small">{{ $referral->title }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endforeach
-                    </div>
+{{--                    <div class="isotope-container row grid-space-10">--}}
+{{--                        @foreach(array_chunk($referrals->all(), 4) as $referrals)--}}
+{{--                            <div class="row">--}}
+{{--                                @foreach($referrals as $referral)--}}
+{{--                                    <div class="col-md-3 col-sm-6 isotope-item {{ $referral->slug }}">--}}
+{{--                                        <div class="image-box shadow bordered text-center mb-20">--}}
+{{--                                            <div class="overlay-container">--}}
+{{--                                                <div class="img-container">--}}
+{{--                                                    <img src="/assets/img/referrals/medium/{{ $referral->image }}"--}}
+{{--                                                         alt="{{ $referral->title }}">--}}
+{{--                                                </div>--}}
+{{--                                                <div class="overlay-top">--}}
+{{--                                                    <div class="text">--}}
+{{--                                                        <h3>--}}
+{{--                                                            <a href="/referents/{{ $referral->slug }}">{!! $referral->title !!}</a>--}}
+{{--                                                        </h3>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="overlay-bottom">--}}
+{{--                                                    <p class="small">{{ $referral->title }}</p>--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
                 </div>
             </div>
     </section>
