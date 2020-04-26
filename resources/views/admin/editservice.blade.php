@@ -49,6 +49,11 @@
                             </div>
                             @if ($errors->has('title')) <p class="alert alert-danger">{{ $errors->first('title') }}</p> @endif
 
+                            <div class="form-group">
+                                <label for="shortdesc">short description</label>
+                                <textarea class="ckeditor" id="subtitle" name="shortdesc">{{ $service->shortdesc }}</textarea>
+                            </div>
+                            @if ($errors->has('shortdesc')) <p class="alert alert-danger">{{ $errors->first('shortdesc') }}</p> @endif
 
 
 
@@ -58,11 +63,6 @@
                             </div>
                             @if ($errors->has('description')) <p class="alert alert-danger">{{ $errors->first('description') }}</p> @endif
 
-                            <div class="form-group">
-                                <label for="shortdesc">short description</label>
-                                <textarea name="shortdesc">{{ $service->shortdesc }}</textarea>
-                            </div>
-                            @if ($errors->has('shortdesc')) <p class="alert alert-danger">{{ $errors->first('shortdesc') }}</p> @endif
 
 
                             <div class="form-group">

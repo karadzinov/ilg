@@ -151,6 +151,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <!-- section end -->
 
@@ -172,7 +173,7 @@
                 <div class="col-sm-4">
                     <div class="image-box style-2 mb-20">
                         <div class="overlay-container overlay-visible" style="width: 200px">
-                            <img src="/assets/img/services/thumbnails/{{ $service->image }}" alt="{{ $service->title }}" style="width: 200px">
+                            <img src="/assets/img/services/medium/{{ $service->image }}" alt="{{ $service->title }}" style="height: 200px" >
                             <a href="/services/{{ $service->slug }}" class="overlay-link"><i class="fa fa-link"></i></a>
                             <div class="overlay-bottom">
                                 <div class="text">
@@ -240,6 +241,7 @@
                     </div>
                 </div>
             </div>
+        </div>
     </section>
     <!-- section end -->
 

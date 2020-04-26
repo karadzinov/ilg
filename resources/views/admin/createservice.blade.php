@@ -42,8 +42,6 @@
                             </div>
                             @if ($errors->has('title')) <p class="alert alert-danger">{{ $errors->first('title') }}</p> @endif
 
-
-
                             <div class="form-group">
                                 <label for="description">Детален текст</label>
                                 <textarea class="ckeditor" id="elm3" name="description"></textarea>
@@ -52,10 +50,9 @@
 
                             <div class="form-group">
                                 <label for="shortdesc">Краток текст</label>
-                                <textarea name="shortdesc"></textarea>
+                                <textarea class="ckeditor" id="subtitle" name="shortdesc"></textarea>
                             </div>
                             @if ($errors->has('shortdesc')) <p class="alert alert-danger">{{ $errors->first('shortdesc') }}</p> @endif
-
 
                             <div class="form-group">
                                 <label for="user">Корисник</label>
