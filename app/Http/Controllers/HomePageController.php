@@ -161,4 +161,5 @@ class HomePageController extends Controller
         return view('main.member')->with($data);
     }
 
+
 }

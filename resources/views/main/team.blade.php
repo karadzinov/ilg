@@ -18,7 +18,7 @@
                         <h3>{{$member->name}}</h3>
                         <div class="separator-2"></div>
                         <p class="text-muted">{!! $member->bio !!}</p>
-                        <a href="/team/{{$member->slug}}"
+                        <a href="team"
                            class="btn btn-gray-transparent btn-animated btn-sm margin-clear">Дознај
                             Повеќе<i class="fa fa-arrow-right pl-10"></i></a>
                     </div>
